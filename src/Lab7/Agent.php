@@ -2,10 +2,17 @@
 
 namespace Lab7;
 
-class Agent
+/**
+* Agent_Class is a class which represents an agent.
+*
+* @author   Franck Duché <franckduche@gmail.com>
+* @author   Sara Jghima <sarajghima@gmail.com>
+* @access   public
+*/
+abstract class Agent
 {
-    public function __construct()
-    {
-    }
-    
+    /**
+    * @var int $type the type of the agent
+    */
+    private $type;
 }
