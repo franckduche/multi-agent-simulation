@@ -1,10 +1,4 @@
-{% if dataSent %}
-
-    Number of sharks: {{ sharksNumber }}
-    Number of fishes: {{ fishesNumber }}
-    Number of lines: {{ linesNumber }}
-
-{% endif %}
+<script src="{{ app.request.basepath }}/views/jquery-3.1.1.min.js" type="text/javascript"></script>
 
 <form action="" method="GET">
     <label for="sharks"> Sharks </label>
@@ -21,3 +15,21 @@
     
     <input type="submit" value="Simulate" />
 </form>
+
+{% if dataSent %}
+
+    Number of sharks: {{ sharksNumber }}
+    Number of fishes: {{ fishesNumber }}
+    Number of lines: {{ linesNumber }}
+
+    <script>
+        var generateUrl =  "{{ url('generate', {sharks: sharksNumber, fishes: fishesNumber, lines: linesNumber }) }}";
+
+        $.getJSON(generateUrl, function(json) {
+            console.log(json);
+        });
+    </script>
+    
+  
+{% endif %}
+
