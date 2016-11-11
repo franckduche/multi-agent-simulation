@@ -1,0 +1,23 @@
+{% if dataSent %}
+
+    Number of sharks: {{ sharksNumber }}
+    Number of fishes: {{ fishesNumber }}
+    Number of lines: {{ linesNumber }}
+
+{% endif %}
+
+<form action="" method="GET">
+    <label for="sharks"> Sharks </label>
+    <input name="sharks" type="number" min="1" max="20" />
+    <br />
+    
+    <label for="fishes"> Fishes </label>
+    <input name="fishes" type="number" min="1" max="50" />
+    <br />
+    
+    <label for="lines"> Lines </label>
+    <input name="lines" type="number" min="10" max="100" />
+    <br />
+    
+    <input type="submit" value="Simulate" />
+</form>

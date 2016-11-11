@@ -4,6 +4,11 @@ require_once __DIR__.'/../vendor/autoload.php';
 
 $app = new Silex\Application();
 
+// For templating
+$app->register(new Silex\Provider\TwigServiceProvider(), array(
+    'twig.path' => __DIR__.'/views',
+));
+
 // For debugging purpose
 $app['debug'] = true;
 
@@ -12,5 +17,7 @@ $app->get('/', function () use ($app) {
 });
 
 $app->get('/simulation', 'Lab7\Controller::simulation');
+
+$app->get('/simulation/s/{sharks}/f/{fishes}/l/{lines}', 'Lab7\Controller::simulationData');
 
 $app->run();
