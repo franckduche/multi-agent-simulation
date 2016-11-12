@@ -14,5 +14,10 @@ abstract class Agent
     /**
     * @var int $type the type of the agent
     */
-    private $type;
+    protected $type;
+    
+    public function getType()
+    {
+        return $this->type;
+    }
 }

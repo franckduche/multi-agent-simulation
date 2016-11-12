@@ -21,9 +21,9 @@ $app->get('/', function () use ($app) {
 
 $app->get('/simulation', 'Lab7\Controller::simulation');
 
-$app->get('/simulation/s/{sharks}/f/{fishes}/l/{lines}', 'Lab7\Controller::simulationData');
+$app->post('/simulation', 'Lab7\Controller::simulationData');
 
-$app->get('/generate/s/{sharks}/f/{fishes}/l/{lines}', 'Lab7\Controller::generate')
+$app->get('/generate/s/{sharks}/f/{fishes}/r/{rocks}/l/{lines}', 'Lab7\Controller::generate')
     ->bind('generate');
 
 $app->run();

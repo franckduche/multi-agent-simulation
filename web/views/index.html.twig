@@ -1,12 +1,16 @@
 <script src="{{ app.request.basepath }}/views/jquery-3.1.1.min.js" type="text/javascript"></script>
 
-<form action="" method="GET">
+<form action="" method="POST">
     <label for="sharks"> Sharks </label>
     <input name="sharks" type="number" min="1" max="20" />
     <br />
     
     <label for="fishes"> Fishes </label>
     <input name="fishes" type="number" min="1" max="50" />
+    <br />
+    
+    <label for="rocks"> Rocks </label>
+    <input name="rocks" type="number" min="1" max="20" />
     <br />
     
     <label for="lines"> Lines </label>
@@ -20,10 +24,11 @@
 
     Number of sharks: {{ sharksNumber }}
     Number of fishes: {{ fishesNumber }}
+    Number of rocks: {{ rocksNumber }}
     Number of lines: {{ linesNumber }}
 
     <script>
-        var generateUrl =  "{{ url('generate', {sharks: sharksNumber, fishes: fishesNumber, lines: linesNumber }) }}";
+        var generateUrl =  "{{ url('generate', {sharks: sharksNumber, fishes: fishesNumber, rocks: rocksNumber, lines: linesNumber }) }}";
 
         $.getJSON(generateUrl, function(json) {
             console.log(json);
