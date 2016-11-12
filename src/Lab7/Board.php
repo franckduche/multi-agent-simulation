@@ -39,16 +39,19 @@ class Board
         {
             $arrayKeys = array();
             
-            for ($i = 0; $i < $lines*$lines; $i++)
+            for ($i = 0; $i < $lines; $i++)
             {
-                $arrayKeys[$i] = $i;
+                for ($j = 0; $j < $lines; $j++)
+                {
+                    $arrayKeys[] = array($i, $j);
+                }
             }
             
             // Add sharks
             for ($i = 0; $i < $sharks; $i++)
             {
                 $arrayKey = array_rand($arrayKeys);
-                $this->matrix[floor($arrayKey/10)][$arrayKey%10] = new Shark();
+                $this->matrix[$arrayKeys[$arrayKey][0]][$arrayKeys[$arrayKey][1]] = new Shark();
                 unset($arrayKeys[$arrayKey]);
             }
             
@@ -56,7 +59,7 @@ class Board
             for ($i = 0; $i < $fishes; $i++)
             {
                 $arrayKey = array_rand($arrayKeys);
-                $this->matrix[floor($arrayKey/10)][$arrayKey%10] = new Fish();
+                $this->matrix[$arrayKeys[$arrayKey][0]][$arrayKeys[$arrayKey][1]] = new Fish();
                 unset($arrayKeys[$arrayKey]);
             }
             
@@ -64,7 +67,7 @@ class Board
             for ($i = 0; $i < $rocks; $i++)
             {
                 $arrayKey = array_rand($arrayKeys);
-                $this->matrix[floor($arrayKey/10)][$arrayKey%10] = new Rock();
+                $this->matrix[$arrayKeys[$arrayKey][0]][$arrayKeys[$arrayKey][1]] = new Rock();
                 unset($arrayKeys[$arrayKey]);
             }
         }
@@ -133,11 +136,15 @@ class Board
     public function update()
     {
         $lines = count($this->matrix);
+
         $arrayKeys = array();
         
-        for ($i = 0; $i < $lines*$lines; $i++)
+        for ($i = 0; $i < $lines; $i++)
         {
-            $arrayKeys[$i] = $i;
+            for ($j = 0; $j < $lines; $j++)
+            {
+                $arrayKeys[] = array($i, $j);
+            }
         }
         
         // Pick randomly each cell from the current board to move it.
@@ -145,8 +152,8 @@ class Board
         {
             $arrayKey = array_rand($arrayKeys);
             
-            $x = floor($arrayKey/10);
-            $y = $arrayKey%10;
+            $x = $arrayKeys[$arrayKey][0];
+            $y = $arrayKeys[$arrayKey][1];
             $currentElement = $this->matrix[$x][$y];
 
             if ($currentElement != 0)
