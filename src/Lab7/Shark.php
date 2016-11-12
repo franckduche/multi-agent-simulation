@@ -20,4 +20,8 @@ class Shark extends Agent
         $this->type = 1;
     }
     
+    public function getNewPosition(&$matrix, $i, $j)
+    {
+    }
+    
 }

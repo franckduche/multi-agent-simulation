@@ -99,11 +99,62 @@ class Board
     }
     
     /**
-    * Creates the object by unserializing the specified JSON.
+    * Creates the object by unserializing the specified array.
     *
-    * @param  string  $json the JSON to unserialize
+    * @param  array  $array the array to transform into object
     */
-    public function fromJson($json)
+    public function fromArray($array)
     {
+        $lines = count($array);
+        
+        for ($i = 0; $i < $lines; $i++)
+        {
+            for ($j = 0; $j < $lines; $j++)
+            {
+                if ($array[$i][$j] == 1)
+                {
+                    $this->matrix[$i][$j] = new Shark();
+                }
+                elseif ($array[$i][$j] == 2)
+                {
+                    $this->matrix[$i][$j] = new Fish();
+                }
+                elseif ($array[$i][$j] == 3)
+                {
+                    $this->matrix[$i][$j] = new Rock();
+                }
+            }
+        }
+    }
+    
+    /**
+    * Update randomly the positions of the elements of the matrix.
+    */
+    public function update()
+    {
+        $lines = count($this->matrix);
+        $arrayKeys = array();
+        
+        for ($i = 0; $i < $lines*$lines; $i++)
+        {
+            $arrayKeys[$i] = $i;
+        }
+        
+        // Pick randomly each cell from the current board to move it.
+        for($i = 0; $i < $lines*$lines; $i++)
+        {
+            $arrayKey = array_rand($arrayKeys);
+            
+            $x = floor($arrayKey/10);
+            $y = $arrayKey%10;
+            $currentElement = $this->matrix[$x][$y];
+
+            if ($currentElement != 0)
+            {
+                $currentElement->getNewPosition($this->matrix, $x, $y);
+            }
+            
+            unset($arrayKeys[$arrayKey]);
+        }
     }
 }

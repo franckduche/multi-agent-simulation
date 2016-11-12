@@ -46,6 +46,7 @@
         var lines = board.length;
 
         var $board = $("#board");
+        $board.empty();
 
         for (var i = 0; i < lines; i++)
         { 
@@ -104,7 +105,7 @@
         state = 1;
     }
 
-    /* Refresh every 5 seconds. */
+    /* Refresh every 1 second. */
     var updateUrl =  "{{ url('update') }}";
     var timer = new InvervalTimer(function () {
 
@@ -117,9 +118,11 @@
         .done(function(data)
         {
             console.log(data);
+            currentBoard = data;
+            drawBoard(currentBoard);
         });
 
-    }, 2000);
+    }, 1000);
 
     /* Stop or restart the refreshing. */
     $("button#stopRefresh").click(function() {

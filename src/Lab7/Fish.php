@@ -20,4 +20,85 @@ class Fish extends Agent
         $this->type = 2;
     }
     
+    public function getNewPosition(&$matrix, $i, $j)
+    {
+        $n = count($matrix);
+        
+        // First we get the coordinates of elements around
+        
+        $top = array();
+        $top['x'] = ($i - 1 + $n) % $n;
+        $top['y'] = ($j);
+        
+        $left = array();
+        $left['x'] = $i;
+        $left['y'] = ($j - 1 + $n) % $n;
+        
+        $bottom = array();
+        $bottom['x'] = ($i + 1 + $n) % $n;
+        $bottom['y'] = $j;
+        
+        $right = array();
+        $right['x'] = $i;
+        $right['y'] = ($j + 1 + $n) % $n;
+        
+        // Then we mix them randomly
+        
+        $keys = array();
+        $keys[] = $top;
+        $keys[] = $left;
+        $keys[] = $bottom;
+        $keys[] = $right;
+        shuffle($keys);
+
+        if (!($matrix[$keys[0]['x']][$keys[0]['y']] instanceof Rock))
+        {
+            if ($matrix[$keys[0]['x']][$keys[0]['y']] == 0)
+            {
+                $matrix[$keys[0]['x']][$keys[0]['y']] = $matrix[$i][$j];
+                $matrix[$i][$j] = 0;
+            }
+            if ($matrix[$keys[0]['x']][$keys[0]['y']] instanceof Shark)
+            {
+                $matrix[$i][$j] = 0;
+            }
+        }
+        elseif (!($matrix[$keys[1]['x']][$keys[1]['y']] instanceof Rock))
+        {
+            if ($matrix[$keys[1]['x']][$keys[1]['y']] == 0)
+            {
+                $matrix[$keys[1]['x']][$keys[1]['y']] = $matrix[$i][$j];
+                $matrix[$i][$j] = 0;
+            }
+            if ($matrix[$keys[1]['x']][$keys[1]['y']] instanceof Shark)
+            {
+                $matrix[$i][$j] = 0;
+            }
+        }
+        elseif (!($matrix[$keys[2]['x']][$keys[2]['y']] instanceof Rock))
+        {
+            if ($matrix[$keys[2]['x']][$keys[2]['y']] == 0)
+            {
+                $matrix[$keys[2]['x']][$keys[2]['y']] = $matrix[$i][$j];
+                $matrix[$i][$j] = 0;
+            }
+            if ($matrix[$keys[2]['x']][$keys[2]['y']] instanceof Shark)
+            {
+                $matrix[$i][$j] = 0;
+            }
+        }
+        elseif (!($matrix[$keys[3]['x']][$keys[3]['y']] instanceof Rock))
+        {
+            if ($matrix[$keys[3]['x']][$keys[3]['y']] == 0)
+            {
+                $matrix[$keys[3]['x']][$keys[3]['y']] = $matrix[$i][$j];
+                $matrix[$i][$j] = 0;
+            }
+            if ($matrix[$keys[3]['x']][$keys[3]['y']] instanceof Shark)
+            {
+                $matrix[$i][$j] = 0;
+            }
+        }
+    }
+    
 }

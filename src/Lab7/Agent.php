@@ -20,4 +20,13 @@ abstract class Agent
     {
         return $this->type;
     }
+    
+    /**
+    * Get the new position of the agent according to the board.
+    * 
+    * @param  array  $array the current board as a reference
+    * @param  int  $i x coordinate
+    * @param  int  $j y coordinate
+    */
+    public abstract function getNewPosition(&$matrix, $i, $j);
 }

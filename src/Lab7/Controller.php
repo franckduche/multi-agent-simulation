@@ -38,6 +38,9 @@ class Controller
     
     public function update(Request $request, Application $app)
     {
-        return "{}";
+        $board = new Board(count($request->get('boardArray')));
+        $board->fromArray($request->get('boardArray'));
+        $board->update();
+        return $app->json($board->toJson());
     }
 }

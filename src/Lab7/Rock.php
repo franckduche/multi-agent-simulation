@@ -20,4 +20,9 @@ class Rock extends Agent
         $this->type = 3;
     }
     
+    public function getNewPosition(&$matrix, $i, $j)
+    {
+        // Do nothing, a rock doesn't move.
+    }
+    
 }
