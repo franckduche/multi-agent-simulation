@@ -25,5 +25,8 @@ $app->post('/simulation', 'Lab7\Controller::simulationData');
 
 $app->get('/generate/s/{sharks}/f/{fishes}/r/{rocks}/l/{lines}', 'Lab7\Controller::generate')
     ->bind('generate');
+    
+$app->post('/update', 'Lab7\Controller::update')
+    ->bind('update');
 
 $app->run();

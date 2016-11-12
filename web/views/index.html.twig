@@ -1,20 +1,26 @@
+<html>
+<head>
+</head>
+
+<body>
+
 <script src="{{ app.request.basepath }}/views/jquery-3.1.1.min.js" type="text/javascript"></script>
 
 <form action="" method="POST">
     <label for="sharks"> Sharks </label>
-    <input name="sharks" type="number" min="1" max="20" />
+    <input name="sharks" type="number" min="1" max="20" value="1" />
     <br />
     
     <label for="fishes"> Fishes </label>
-    <input name="fishes" type="number" min="1" max="50" />
+    <input name="fishes" type="number" min="1" max="50" value="10" />
     <br />
     
     <label for="rocks"> Rocks </label>
-    <input name="rocks" type="number" min="1" max="20" />
+    <input name="rocks" type="number" min="1" max="20" value="5" />
     <br />
     
     <label for="lines"> Lines </label>
-    <input name="lines" type="number" min="10" max="100" />
+    <input name="lines" type="number" min="10" max="100" value="10" />
     <br />
     
     <input type="submit" value="Simulate" />
@@ -22,19 +28,118 @@
 
 {% if dataSent %}
 
+    <button id="stopRefresh">Pause</button>
+
+    <table id="board">
+    </table>
+
     Number of sharks: {{ sharksNumber }}
     Number of fishes: {{ fishesNumber }}
     Number of rocks: {{ rocksNumber }}
     Number of lines: {{ linesNumber }}
 
     <script>
-        var generateUrl =  "{{ url('generate', {sharks: sharksNumber, fishes: fishesNumber, rocks: rocksNumber, lines: linesNumber }) }}";
+        
+    /* To draw the board in the DOM. */
+    function drawBoard(board)
+    {
+        var lines = board.length;
 
-        $.getJSON(generateUrl, function(json) {
-            console.log(json);
+        var $board = $("#board");
+
+        for (var i = 0; i < lines; i++)
+        { 
+            $board.append("<tr>");
+          
+            for (var j = 0; j < lines; j++)
+            {
+                $board.append('<td> <img src="{{ app.request.basepath }}/views/images/' + board[i][j] + '.png" width="40px" /> </td>');
+            }
+            
+            $board.append("</tr>");
+        }
+    }
+        
+    var generateUrl =  "{{ url('generate', {sharks: sharksNumber, fishes: fishesNumber, rocks: rocksNumber, lines: linesNumber }) }}";
+    var currentBoard = null;
+
+    /* Draw the first generated board */
+    $.getJSON(generateUrl, function(json) {
+        drawBoard(json);
+        currentBoard = json;
+    });
+    
+    /* Timer to pause and resume the board refresh. */
+    function InvervalTimer(callback, interval) {
+        var timerId, startTime, remaining = 0;
+        var state = 0; //  0 = idle, 1 = running, 2 = paused, 3= resumed
+
+        this.pause = function () {
+            if (state != 1) return;
+
+            remaining = interval - (new Date() - startTime);
+            window.clearInterval(timerId);
+            state = 2;
+        };
+
+        this.resume = function () {
+            if (state != 2) return;
+
+            state = 3;
+            window.setTimeout(this.timeoutCallback, remaining);
+        };
+
+        this.timeoutCallback = function () {
+            if (state != 3) return;
+
+            callback();
+
+            startTime = new Date();
+            timerId = window.setInterval(callback, interval);
+            state = 1;
+        };
+
+        startTime = new Date();
+        timerId = window.setInterval(callback, interval);
+        state = 1;
+    }
+
+    /* Refresh every 5 seconds. */
+    var updateUrl =  "{{ url('update') }}";
+    var timer = new InvervalTimer(function () {
+
+        /* Get data with POST request */
+        $.ajax({        
+           type: "POST",
+           url: updateUrl,
+           data: { boardArray : currentBoard }
+        })
+        .done(function(data)
+        {
+            console.log(data);
         });
+
+    }, 2000);
+
+    /* Stop or restart the refreshing. */
+    $("button#stopRefresh").click(function() {
+        if ($(this).text() == "Pause")
+        {
+            $(this).text("Resume");
+            timer.pause();
+        }
+        else
+        {
+            $(this).text("Pause");
+            timer.resume();
+        }
+    });
+    
     </script>
     
   
 {% endif %}
 
+
+</body>
+</html>

@@ -35,4 +35,9 @@ class Controller
         $board = new Board($lines, $sharks, $fishes, $rocks);
         return $app->json($board->toJson());
     }
+    
+    public function update(Request $request, Application $app)
+    {
+        return "{}";
+    }
 }
