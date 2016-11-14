@@ -16,6 +16,11 @@ abstract class Agent
     */
     protected $type;
     
+    /**
+    * returns the type of the agent.
+    *
+    * @return int integer representing the type
+    */
     public function getType()
     {
         return $this->type;

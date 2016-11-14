@@ -20,6 +20,14 @@ class Shark extends Agent
         $this->type = 1;
     }
     
+    /**
+    * Get the new position of the shark according to the board.
+    * It has a Moore moving and vision.
+    * 
+    * @param  array  $array the current board as a reference
+    * @param  int  $i x coordinate
+    * @param  int  $j y coordinate
+    */
     public function getNewPosition(&$matrix, $i, $j)
     {
     }

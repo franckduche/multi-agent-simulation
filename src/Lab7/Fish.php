@@ -20,6 +20,14 @@ class Fish extends Agent
         $this->type = 2;
     }
     
+    /**
+    * Get the new position of the fish according to the board.
+    * It has a Neumann moving and vision.
+    * 
+    * @param  array  $array the current board as a reference
+    * @param  int  $i x coordinate
+    * @param  int  $j y coordinate
+    */
     public function getNewPosition(&$matrix, $i, $j)
     {
         $n = count($matrix);
