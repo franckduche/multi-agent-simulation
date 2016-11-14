@@ -30,6 +30,8 @@ class Fish extends Agent
     */
     public function getNewPosition(&$matrix, $i, $j)
     {
+        $newCoordinates = null;
+        
         $n = count($matrix);
         
         // First we get the coordinates of elements around
@@ -65,6 +67,9 @@ class Fish extends Agent
             {
                 $matrix[$keys[0]['x']][$keys[0]['y']] = $matrix[$i][$j];
                 $matrix[$i][$j] = 0;
+                $newCoordinates = array();
+                $newCoordinates[0] = $keys[0]['x'];
+                $newCoordinates[1] = $keys[0]['y'];
             }
             if ($matrix[$keys[0]['x']][$keys[0]['y']] instanceof Shark)
             {
@@ -77,6 +82,9 @@ class Fish extends Agent
             {
                 $matrix[$keys[1]['x']][$keys[1]['y']] = $matrix[$i][$j];
                 $matrix[$i][$j] = 0;
+                $newCoordinates = array();
+                $newCoordinates[0] = $keys[1]['x'];
+                $newCoordinates[1] = $keys[1]['y'];
             }
             if ($matrix[$keys[1]['x']][$keys[1]['y']] instanceof Shark)
             {
@@ -89,6 +97,9 @@ class Fish extends Agent
             {
                 $matrix[$keys[2]['x']][$keys[2]['y']] = $matrix[$i][$j];
                 $matrix[$i][$j] = 0;
+                $newCoordinates = array();
+                $newCoordinates[0] = $keys[2]['x'];
+                $newCoordinates[1] = $keys[2]['y'];
             }
             if ($matrix[$keys[2]['x']][$keys[2]['y']] instanceof Shark)
             {
@@ -101,12 +112,17 @@ class Fish extends Agent
             {
                 $matrix[$keys[3]['x']][$keys[3]['y']] = $matrix[$i][$j];
                 $matrix[$i][$j] = 0;
+                $newCoordinates = array();
+                $newCoordinates[0] = $keys[3]['x'];
+                $newCoordinates[1] = $keys[3]['y'];
             }
             if ($matrix[$keys[3]['x']][$keys[3]['y']] instanceof Shark)
             {
                 $matrix[$i][$j] = 0;
             }
         }
+        
+        return $newCoordinates;
     }
     
 }

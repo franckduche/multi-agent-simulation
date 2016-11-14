@@ -158,7 +158,16 @@ class Board
 
             if ($currentElement != 0)
             {
-                $currentElement->getNewPosition($this->matrix, $x, $y);
+                $newCoordinates = $currentElement->getNewPosition($this->matrix, $x, $y);
+                
+                // Get the new position to remove it from the random keys matrix.
+                if ($newCoordinates != null)
+                {
+                    if(($keyFound = array_search($newCoordinates, $arrayKeys)) !== false)
+                    {
+                        unset($messages[$keyFound]);
+                    }
+                }
             }
             
             unset($arrayKeys[$arrayKey]);

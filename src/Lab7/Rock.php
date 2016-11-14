@@ -30,7 +30,9 @@ class Rock extends Agent
     */
     public function getNewPosition(&$matrix, $i, $j)
     {
+        $newCoordinates = null;
         // Do nothing, a rock doesn't move.
+        return $newCoordinates;
     }
     
 }
