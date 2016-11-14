@@ -1,42 +1,163 @@
 <html>
 <head>
+    <style>
+    .form-style-5 {
+        max-width: 50%;
+        padding: 10px 20px;
+        background: #e3eaec;
+        margin: 15px;
+        padding: 20px 20px 15px 20px;
+        border-radius: 8px;
+        font-family: Georgia, "Times New Roman", Times, serif;
+        float: left;
+    }
+    .form-style-5 fieldset {
+        border: none;
+    }
+    .form-style-5 legend {
+        color: #111;
+        font-family: 'Helvetica Neue', sans-serif;
+        font-size: 55px;
+        font-weight: bold;
+        letter-spacing: -1px;
+        line-height: 1;
+        text-align: center;
+        margin-top: 15px;
+        margin-bottom: 10px;
+    }
+    .form-style-5 label {
+        display: block;
+        margin-bottom: 8px;
+    }
+    .form-style-5 input[type="text"],
+    .form-style-5 input[type="date"],
+    .form-style-5 input[type="datetime"],
+    .form-style-5 input[type="email"],
+    .form-style-5 input[type="number"],
+    .form-style-5 input[type="search"],
+    .form-style-5 input[type="time"],
+    .form-style-5 input[type="url"],
+    .form-style-5 textarea,
+    .form-style-5 select {
+        font-family: Georgia, "Times New Roman", Times, serif;
+        background: rgba(255,255,255,.1);
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        margin: 0;
+        outline: 0;
+        padding: 7px;
+        width: 100%;
+        box-sizing: border-box; 
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box; 
+        background-color: #ced8da;
+        color:#8a97a0;
+        -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+        box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+        margin-bottom: 30px;
+        
+    }
+    .form-style-5 input[type="text"]:focus,
+    .form-style-5 input[type="date"]:focus,
+    .form-style-5 input[type="datetime"]:focus,
+    .form-style-5 input[type="email"]:focus,
+    .form-style-5 input[type="number"]:focus,
+    .form-style-5 input[type="search"]:focus,
+    .form-style-5 input[type="time"]:focus,
+    .form-style-5 input[type="url"]:focus,
+    .form-style-5 textarea:focus,
+    .form-style-5 select:focus{
+        background: #bacace;
+    }
+    .form-style-5 select{
+        -webkit-appearance: menulist-button;
+        height:35px;
+    }
+
+    .form-style-5 .buttons
+    {
+        position: relative;
+        display: block;
+        padding: 19px 39px 18px 39px;
+        color: #FFF;
+        margin: 0 auto;
+        width: 100%;
+    }
+    
+    .form-style-5 input[type="submit"],
+    .form-style-5 input[type="button"],
+    button
+    {
+        padding: 19px 39px 18px 39px;
+        color: #FFF;
+        background: #1a8fbc;
+        font-size: 18px;
+        text-align: center;
+        font-style: normal;
+        width: 40%;
+        border: 1px solid #1673a0;
+        border-width: 1px 1px 3px;
+        margin-bottom: 0px;
+    }
+    .form-style-5 input[type="submit"]:hover,
+    .form-style-5 input[type="button"]:hover,
+    button:hover
+    {
+        background: #177da5;
+    }
+    
+    .form-style-5 p
+    {
+        text-align: center;
+    }
+    </style>
+    <script src="{{ app.request.basepath }}/views/jquery-3.1.1.min.js" type="text/javascript"></script>
 </head>
 
 <body>
 
-<script src="{{ app.request.basepath }}/views/jquery-3.1.1.min.js" type="text/javascript"></script>
-
-<form action="" method="POST">
-    <label for="sharks"> Sharks </label>
-    <input name="sharks" type="number" min="1" max="20" value="1" />
-    <br />
-    
-    <label for="fishes"> Fishes </label>
-    <input name="fishes" type="number" min="1" max="50" value="10" />
-    <br />
-    
-    <label for="rocks"> Rocks </label>
-    <input name="rocks" type="number" min="1" max="20" value="5" />
-    <br />
-    
-    <label for="lines"> Lines </label>
-    <input name="lines" type="number" min="10" max="100" value="10" />
-    <br />
-    
-    <input type="submit" value="Simulate" />
-</form>
+<div class="form-style-5">
+    <form action="" method="POST">
+        <fieldset>
+            <legend> Sharkiller </legend>
+            <label for="sharks"> Sharks </label>
+            <input name="sharks" type="number" min="1" max="20" value="1" />
+            <br />
+            
+            <label for="fishes"> Fishes </label>
+            <input name="fishes" type="number" min="1" max="50" value="10" />
+            <br />
+            
+            <label for="rocks"> Rocks </label>
+            <input name="rocks" type="number" min="1" max="20" value="5" />
+            <br />
+            
+            <label for="lines"> Lines </label>
+            <input name="lines" type="number" min="10" max="100" value="10" />
+            <br />
+        </fieldset>
+        
+        <div class="buttons">
+            <input type="submit" value="Simulate" />
+            <button type="button" id="stopRefresh">Pause</button>
+        </div>
+    </form>
+</div>
 
 {% if dataSent %}
 
-    <button id="stopRefresh">Pause</button>
-
-    <table id="board">
-    </table>
-
-    Number of sharks: {{ sharksNumber }}
-    Number of fishes: {{ fishesNumber }}
-    Number of rocks: {{ rocksNumber }}
-    Number of lines: {{ linesNumber }}
+    <div class="form-style-5">
+        <table id="board">
+        </table>
+        
+        <p>
+            [ Initially : {{ sharksNumber }} sharks |
+            {{ fishesNumber }} fishes |
+            {{ rocksNumber }} rocks |
+            {{ linesNumber }} lines ]
+        </p>
+    </div>
 
     <script>
         
@@ -54,7 +175,8 @@
           
             for (var j = 0; j < lines; j++)
             {
-                $board.append('<td> <img src="{{ app.request.basepath }}/views/images/' + board[i][j] + '.png" width="40px" /> </td>');
+                var size = 90 - lines;
+                $board.append('<td> <img src="{{ app.request.basepath }}/views/images/' + board[i][j] + '.png" width="' + size + '%" /> </td>');
             }
             
             $board.append("</tr>");
