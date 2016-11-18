@@ -155,7 +155,8 @@
             [ Initially : {{ sharksNumber }} sharks |
             {{ fishesNumber }} fishes |
             {{ rocksNumber }} rocks |
-            {{ linesNumber }} lines ]
+            {{ linesNumber }} lines |
+             <span class="rounds">1</span> rounds ]
         </p>
     </div>
 
@@ -229,6 +230,7 @@
 
     /* Refresh every 1 second. */
     var updateUrl =  "{{ url('update') }}";
+    var roundNumber = 1;
     var timer = new InvervalTimer(function () {
 
         /* Get data with POST request */
@@ -242,6 +244,10 @@
             currentBoard = data;
             drawBoard(currentBoard);
         });
+        
+        roundNumber++
+        $(".rounds").empty();
+        $(".rounds").append(roundNumber);
 
     }, 1000);
 
