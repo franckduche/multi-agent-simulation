@@ -156,16 +156,21 @@
             {{ fishesNumber }} fishes |
             {{ rocksNumber }} rocks |
             {{ linesNumber }} lines |
-             <span class="rounds">1</span> rounds ]
+             <span class="rounds">1</span> rounds <span class="totalRounds"></span> ]
         </p>
     </div>
 
     <script>
         
+    var roundNumber = 1;
+    var noFish = true;
+    var totalRoundDisplayed = false;
+        
     /* To draw the board in the DOM. */
     function drawBoard(board)
     {
         var lines = board.length;
+        noFish = true;
 
         var $board = $("#board");
         $board.empty();
@@ -178,9 +183,23 @@
             {
                 var size = 90 - lines;
                 $board.append('<td> <img src="{{ app.request.basepath }}/views/images/' + board[i][j] + '.png" width="' + size + '%" /> </td>');
+                
+                if (board[i][j] == 2)
+                {
+                    noFish = false;
+                }
             }
             
             $board.append("</tr>");
+        }
+        
+        if (noFish)
+        {
+            if (!totalRoundDisplayed)
+            {
+                $(".totalRounds").append(" | Total " + roundNumber );
+                totalRoundDisplayed = true;
+            }
         }
     }
         
@@ -230,7 +249,6 @@
 
     /* Refresh every 1 second. */
     var updateUrl =  "{{ url('update') }}";
-    var roundNumber = 1;
     var timer = new InvervalTimer(function () {
 
         /* Get data with POST request */

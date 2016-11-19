@@ -129,7 +129,8 @@ class Shark extends Agent
         
         for ($k = 0; $k < count($keys); $k++)
         {
-            if (!$alreadyMoved && !($matrix[$keys[$k]['x']][$keys[$k]['y']] instanceof Rock))
+            if (!$alreadyMoved && !($matrix[$keys[$k]['x']][$keys[$k]['y']] instanceof Rock)
+             && !($matrix[$keys[$k]['x']][$keys[$k]['y']] instanceof Shark))
             {
                 $matrix[$keys[$k]['x']][$keys[$k]['y']] = $matrix[$i][$j];
                 $matrix[$i][$j] = 0;
