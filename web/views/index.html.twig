@@ -182,7 +182,8 @@
             for (var j = 0; j < lines; j++)
             {
                 var size = 90 - lines;
-                $board.append('<td> <img src="{{ app.request.basepath }}/views/images/' + board[i][j] + '.png" width="' + size + '%" /> </td>');
+                var opacity = board[i][j] == 0 ? '0.5' : 1;
+                $board.append('<td> <img src="{{ app.request.basepath }}/views/images/' + board[i][j] + '.png" width="' + size + '%" style="opacity:' + opacity + ';" /> </td>');
                 
                 if (board[i][j] == 2)
                 {
@@ -247,7 +248,7 @@
         state = 1;
     }
 
-    /* Refresh every 1 second. */
+    /* Refresh every 2 seconds. */
     var updateUrl =  "{{ url('update') }}";
     var timer = new InvervalTimer(function () {
 
@@ -267,7 +268,7 @@
         $(".rounds").empty();
         $(".rounds").append(roundNumber);
 
-    }, 1000);
+    }, 2000);
 
     /* Stop or restart the refreshing. */
     $("button#stopRefresh").click(function() {

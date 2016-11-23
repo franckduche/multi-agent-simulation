@@ -31,7 +31,7 @@ class Board
         // First fill the matrix with 0 (water)
         for ($i = 0; $i < $lines; $i++)
         {
-            $this->matrix[$i] = array_fill(0, 10, 0);
+            $this->matrix[$i] = array_fill(0, $lines, 0);
         }
 
         // If it's a generation
